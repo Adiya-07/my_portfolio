@@ -9,8 +9,7 @@ const serif = Instrument_Serif({ subsets: ['latin'], weight: '400', variable: '-
 export const metadata: Metadata = {
   title: 'Adiya R — An Expedition Portfolio',
   description:
-    'Adiya R, B.Tech Artificial Intelligence & Data Science student at KGiSL Institute of Technology. A cinematic climb from base camp through the Himalayas, K2 and Everest — featuring Fable, VehicleNet and AstroGuy.',
-  generator: 'v0.app',
+    'Adiya R, B.Tech Artificial Intelligence & Data Science student at KGiSL Institute of Technology. A cinematic climb from base camp through the Himalayas, K2 and Everest — featuring Fable, NEXUS and AstroGuy.',
   icons: {
     icon: [
       {

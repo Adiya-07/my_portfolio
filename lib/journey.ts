@@ -6,6 +6,7 @@ export const journey = {
   progress: 0,
   mouseX: 0,
   mouseY: 0,
+  reducedMotion: false,
   smoothMouseX: 0,
   smoothMouseY: 0,
   listeners: new Set<Listener>(),
@@ -36,7 +37,7 @@ export function track(p: number, keys: readonly Key[]) {
     const [p1, v1] = keys[i + 1]
     if (p <= p1) {
       const t = clamp((p - p0) / (p1 - p0 || 1))
-      const e = t * t * (3 - 2 * t)
+      const e = t * t * t * (t * (t * 6 - 15) + 10)
       return v0 + (v1 - v0) * e
     }
   }
@@ -70,9 +71,10 @@ export const T = {
 export const STAGES = [
   { id: 'basecamp', label: 'Base Camp', sub: 'Gokyo, Khumbu', at: 0 },
   { id: 'himalayas', label: 'Himalayas', sub: 'AstroGuy', at: 0.24 },
-  { id: 'k2', label: 'K2', sub: 'VehicleNet', at: 0.48 },
+  { id: 'k2', label: 'K2', sub: 'NEXUS', at: 0.48 },
   { id: 'everest', label: 'Everest', sub: 'Fable', at: 0.695 },
-  { id: 'range', label: 'The Range', sub: 'Logbook', at: 0.86 },
+  { id: 'range', label: 'The Range', sub: 'Other projects', at: 0.869 },
+  { id: 'logbook', label: 'Logbook', sub: 'Skills & achievements', at: 0.909 },
   { id: 'sunset', label: 'Sunset', sub: 'Contact', at: 1 },
 ] as const
 

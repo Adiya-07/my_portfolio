@@ -7,7 +7,7 @@ const stageFrame = 'inset-x-4 bottom-[5vh] z-20 md:inset-x-0 md:bottom-[6vh]'
 
 const PEAKS = [
   { name: 'Himalayas', detail: 'Ama Dablam · 6,812 m', project: 'AstroGuy' },
-  { name: 'K2', detail: 'Karakoram · 8,611 m', project: 'VehicleNet' },
+  { name: 'K2', detail: 'Karakoram · 8,611 m', project: 'NEXUS' },
   { name: 'Everest', detail: 'Mahalangur · 8,849 m', project: 'Fable' },
 ]
 
@@ -54,7 +54,8 @@ export function RoutesStage() {
                   )}
                 </div>
                 <p className="mt-1 text-[12px] uppercase tracking-wider text-sky-100/75">{p.tagline}</p>
-                <p className="mt-2 text-[13px] leading-relaxed text-white/75">{p.note}</p>
+                <p className="mt-2 text-sm leading-relaxed text-white/85">{p.note}</p>
+                <a className="project-link mt-3" href={p.repo} target="_blank" rel="noreferrer">View repository</a>
               </Glass>
             </li>
           ))}

@@ -12,10 +12,10 @@ const TITLES = [
     letterSpacing: '0.12em',
   },
   {
-    id: 'vehiclenet',
-    text: 'VEHICLENET',
+    id: 'nexus',
+    text: 'NEXUS',
     window: [0.405, 0.545] as const,
-    fontSize: 'clamp(2.8rem, 9.6vw, 9.6rem)',
+    fontSize: 'clamp(3.5rem, 12.5vw, 12rem)',
     letterSpacing: '0.1em',
   },
   {
@@ -46,7 +46,7 @@ export function DepthTitleLayer() {
       if (containerRef.current) {
         const mx = journey.smoothMouseX
         const my = journey.smoothMouseY
-        containerRef.current.style.transform = `translate3d(${(-mx * 16).toFixed(1)}px, ${(my * 10).toFixed(1)}px, 0)`
+        containerRef.current.style.transform = `translate3d(${(-mx * 8).toFixed(1)}px, ${(my * 5).toFixed(1)}px, 0)`
       }
 
       TITLES.forEach((t, i) => {
@@ -75,7 +75,7 @@ export function DepthTitleLayer() {
             ref={(node) => {
               itemRefs.current[i] = node
             }}
-            className="absolute select-none font-serif font-black leading-none text-center transition-opacity"
+            className="absolute select-none font-serif font-black leading-none text-center "
             style={{
               fontSize: t.fontSize,
               letterSpacing: t.letterSpacing,

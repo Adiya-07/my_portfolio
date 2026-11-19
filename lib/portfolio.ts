@@ -34,18 +34,14 @@ export const astroguy = {
   achievement: 'Second Prize — PyExpo Inter-College Competition',
 }
 
-export const vehiclenet = {
-  name: 'VehicleNet',
-  tagline: 'Vehicle Communication & Telemetry HUD',
-  description: 'A vehicle communication and telemetry interface focused on:',
-  focus: [
-    'Vehicle-to-vehicle communication',
-    'Real-time telemetry',
-    'Radar-style visualization',
-    'WebSockets',
-    'Spatial data visualization',
-    'Communication systems',
-  ],
+export const nexus = {
+  name: 'NEXUS',
+  tagline: 'Local AI Assistant · Permission-first architecture',
+  status: 'Paused · Phase 1 prototype',
+  description: 'A local AI experiment for natural-language file management. Designed around explicit user consent, a restricted set of file operations and an audit trail.',
+  tech: ['Python', 'Ollama', 'Local LLMs'],
+  highlights: ['Local model integration', 'Separated planning and execution', 'Explicit user approval', 'Audit history'],
+  repo: 'https://github.com/Adiya-07/NEXUS',
 }
 
 export const fable = {
@@ -53,7 +49,7 @@ export const fable = {
   tagline: 'AI-Powered Virality Intelligence',
   status: 'Currently Building',
   description:
-    'Fable analyzes uploaded images and videos and estimates their potential to perform well online. Instead of giving only one viral score, Fable analyzes multiple visual and content characteristics.',
+    'Fable is being developed to analyze images and videos and explore signals associated with audience reach, using multiple visual and content dimensions. Prediction accuracy is not yet established.',
   dimensions: [
     'Virality potential',
     'Mood / emotional tone',
@@ -64,26 +60,28 @@ export const fable = {
     'Content characteristics',
   ],
   analytics:
-    'A data analytics layer generates structured information from analyzed content — to study patterns in viral media and investigate which characteristics are associated with high-performing content.',
+    'A planned data analytics layer would generate structured information from analyzed content — to study patterns in viral media and investigate which characteristics are associated with high-performing content.',
   workflow: ['Upload', 'AI Analysis', 'Multi-dimensional Evaluation', 'Visual Analytics', 'Insights'],
 }
 
-export const otherProjects = [
+export const otherProjects: { name: string; tagline: string; status?: string; note: string; repo: string }[] = [
   {
-    name: 'NEXUS',
-    tagline: 'AI / Local Assistant Project',
-    status: 'Paused',
-    note: 'Worked on parts of the project before pausing development.',
+    name: 'Finger Driver',
+    tagline: 'Computer Vision · Browser Game',
+    note: 'A webcam-controlled three-lane endless runner with a keyboard fallback.',
+    repo: 'https://github.com/Adiya-07/Finger_driver',
   },
   {
     name: 'Harinee Chit',
     tagline: 'Web-Based Chit Fund Management Application',
     note: 'A web application concept for managing chit-fund operations, participants and cycles.',
+    repo: 'https://github.com/Adiya-07/harinee_chit',
   },
   {
-    name: 'Habit Tracker',
+    name: 'Epic Habit RPG',
     tagline: 'Habit Tracking & Visualization Web Application',
-    note: 'A web application focused on tracking habits and presenting progress visually.',
+    note: 'A gamified habit tracker with XP, character progression, streaks and analytics.',
+    repo: 'https://github.com/Adiya-07/Epic-habit-tracker-',
   },
 ]
 

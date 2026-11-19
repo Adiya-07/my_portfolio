@@ -67,7 +67,7 @@ export function MistLayer() {
   return (
     <>
       <div ref={bottom} className="pointer-events-none fixed inset-0 z-[1]" aria-hidden />
-      <div ref={veil} className="pointer-events-none fixed inset-0 z-[2] transition-transform duration-75 ease-out" aria-hidden />
+      <div ref={veil} className="pointer-events-none fixed inset-0 z-[2] " aria-hidden />
       <div
         ref={zoomRush}
         className="pointer-events-none fixed inset-0 z-[3] transition-transform duration-75 ease-out"
@@ -94,7 +94,7 @@ export function Altimeter() {
         if (readout.current) readout.current.textContent = `${Math.round(p * 100)}%`
         let idx = 0
         STAGES.forEach((s, i) => {
-          if (p >= s.at - 0.07) idx = i
+          if (p >= s.at - (i > 3 ? 0.018 : 0.045)) idx = i
         })
         setActive((prev) => (prev === idx ? prev : idx))
       }),
@@ -114,7 +114,7 @@ export function Altimeter() {
             <span className="text-[10px] uppercase tracking-[0.3em] text-white/70">Expedition Portfolio</span>
           </button>
         </div>
-        <div className="text-right [text-shadow:0_1px_12px_rgba(0,0,0,0.35)]" aria-live="polite">
+        <div className="text-right [text-shadow:0_1px_12px_rgba(0,0,0,0.35)]" >
           <span className="block text-[10px] uppercase tracking-[0.3em] text-white/70">
             Ascent <span ref={readout} className="tabular-nums">0%</span>
           </span>
@@ -133,7 +133,7 @@ export function Altimeter() {
               key={s.id}
               type="button"
               onClick={() => journey.scrollTo(s.at)}
-              className="group absolute right-0 flex -translate-y-1/2 translate-x-[5px] items-center gap-3"
+              className="group absolute right-0 flex min-h-8 -translate-y-1/2 translate-x-[5px] items-center gap-3"
               style={{ top: `${s.at * 100}%` }}
               aria-current={i === active ? 'step' : undefined}
             >
@@ -163,7 +163,9 @@ export function Altimeter() {
 
 export function Loader() {
   const { progress, active } = useProgress()
-  const done = !active && progress >= 100
+  const [expired, setExpired] = useState(false)
+  useEffect(() => { const timeout = window.setTimeout(() => setExpired(true), 8000); return () => window.clearTimeout(timeout) }, [])
+  const done = expired || (!active && progress >= 100)
   return (
     <div
       className={cn(

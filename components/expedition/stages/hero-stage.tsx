@@ -31,7 +31,7 @@ export function HeroStage() {
           </div>
           <div>
             <dt className="text-[10px] uppercase tracking-[0.28em] text-white/60">CGPA · Sem 1</dt>
-            <dd className="mt-1 font-serif text-2xl tabular-nums">8.8/10</dd>
+            <dd className="mt-1 font-serif text-2xl tabular-nums">{profile.cgpa.split(' — ')[0]}</dd>
           </div>
         </dl>
       </div>

@@ -53,6 +53,7 @@ export function AstroGuyStage() {
                 <Chip key={t}>{t}</Chip>
               ))}
             </ul>
+            <a className="project-link mt-3" href="https://github.com/Adiya-07/PYEXPO-PY003" target="_blank" rel="noreferrer">View source on GitHub</a>
           </div>
         </div>
       </Glass>

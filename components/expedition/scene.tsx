@@ -14,13 +14,13 @@ function CameraRig() {
     const k = 1 - Math.exp(-delta * 3)
     journey.smoothMouseX = lerp(journey.smoothMouseX, journey.mouseX, k)
     journey.smoothMouseY = lerp(journey.smoothMouseY, journey.mouseY, k)
-    const mx = journey.smoothMouseX
-    const my = journey.smoothMouseY
+    const mx = journey.reducedMotion ? 0 : journey.smoothMouseX
+    const my = journey.reducedMotion ? 0 : journey.smoothMouseY
     const t = state.clock.elapsedTime
 
     const z = track(p, cameraTrack.z)
     const y = track(p, cameraTrack.y)
-    const breathe = Math.sin(t * 0.35) * 0.05
+    const breathe = journey.reducedMotion ? 0 : Math.sin(t * 0.28) * 0.025
     const lookX = track(p, cameraTrack.lookX)
     const roll = track(p, cameraTrack.roll)
     const targetFov = track(p, cameraTrack.fov)
@@ -31,9 +31,9 @@ function CameraRig() {
       cam.updateProjectionMatrix()
     }
 
-    cam.position.set(mx * 0.55, y + my * 0.28 + breathe, z)
+    cam.position.set(mx * 0.24, y + my * 0.14 + breathe, z)
     cam.lookAt(lookX + mx * 0.18, y + track(p, cameraTrack.lookY) + my * 0.1, z - 10)
-    cam.rotateZ(Math.sin(t * 0.21) * 0.0025 - mx * 0.006 + roll)
+    cam.rotateZ(journey.reducedMotion ? 0 : Math.sin(t * 0.18) * 0.0012 - mx * 0.003 + roll)
   })
   return null
 }
@@ -42,8 +42,8 @@ export default function Scene() {
   return (
     <Canvas
       className="!fixed inset-0 z-[2]"
-      dpr={[1, 1.75]}
-      gl={{ antialias: true, alpha: true, powerPreference: 'high-performance' }}
+      dpr={[1, 1.5]}
+      gl={{ antialias: true, alpha: true, powerPreference: 'default' }}
       camera={{ fov: 45, near: 0.1, far: 400, position: [0, 0.25, 12] }}
       aria-hidden
     >

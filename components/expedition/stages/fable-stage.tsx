@@ -33,6 +33,7 @@ export function FableStage() {
             <p className="mt-2 border-l border-white/20 pl-2 text-[11px] leading-relaxed text-white/60">
               {fable.analytics}
             </p>
+            <p className="mt-2 text-xs text-amber-100">Research and development · No public demo yet</p>
           </div>
 
           <div>
