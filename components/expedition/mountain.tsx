@@ -1,10 +1,10 @@
 'use client'
 
-import { useMemo, useRef } from 'react'
+import { useEffect, useMemo, useRef } from 'react'
 import * as THREE from 'three'
 import { useFrame, useThree } from '@react-three/fiber'
 import { Html, useTexture } from '@react-three/drei'
-import { clamp, journey, lerp, mountains, smoothstep, T, track } from '@/lib/journey'
+import { band, clamp, journey, lerp, mountains, smoothstep, T, track } from '@/lib/journey'
 import { skyAt } from '@/lib/sky'
 import { createPhotoMaterial, prepareTexture } from './photo-material'
 
@@ -20,6 +20,31 @@ type MountainProps = {
 }
 
 const tmpColor = new THREE.Color()
+const titleData = {
+  himalayas: { text: 'ASTROGUY', window: T.astro },
+  k2: { text: 'NEXUS', window: T.vehicle },
+  everest: { text: 'FABLE', window: T.fable },
+}
+function makeTitleTexture(text: string) {
+  const canvas = document.createElement('canvas')
+  canvas.width = 2048
+  canvas.height = 512
+  const ctx = canvas.getContext('2d')!
+  ctx.font = '600 330px Georgia, serif'
+  ctx.textAlign = 'center'
+  ctx.textBaseline = 'middle'
+  const gradient = ctx.createLinearGradient(0, 80, 0, 445)
+  gradient.addColorStop(0, 'rgba(230,244,255,0.53)')
+  gradient.addColorStop(1, 'rgba(190,220,245,0.12)')
+  ctx.fillStyle = gradient
+  ctx.strokeStyle = 'rgba(230,244,255,0.50)'
+  ctx.lineWidth = 2.5
+  ctx.fillText(text, 1024, 262, 1960)
+  ctx.strokeText(text, 1024, 262, 1960)
+  const texture = new THREE.CanvasTexture(canvas)
+  texture.colorSpace = THREE.SRGBColorSpace
+  return texture
+}
 
 export function Mountain({ id, url, aspect, height, peak, name, altitude, range }: MountainProps) {
   const gl = useThree((s) => s.gl)
@@ -32,6 +57,9 @@ export function Mountain({ id, url, aspect, height, peak, name, altitude, range 
   const group = useRef<THREE.Group>(null)
   const marker = useRef<HTMLDivElement>(null)
   const width = height * aspect
+  const titleTexture = useMemo(() => makeTitleTexture(titleData[id].text), [id])
+  const titleMaterial = useRef<THREE.MeshBasicMaterial>(null)
+  useEffect(() => () => titleTexture.dispose(), [titleTexture])
 
   useFrame((state) => {
     const g = group.current
@@ -64,6 +92,7 @@ export function Mountain({ id, url, aspect, height, peak, name, altitude, range 
     uniforms.exposure.value = lerp(1, 0.55, sky.t)
     const opacity = track(p, t.o)
     uniforms.opacity.value = opacity
+    if (titleMaterial.current) titleMaterial.current.opacity = band(p, titleData[id].window[0] - 0.018, titleData[id].window[1] + 0.018, 0.025) * opacity
 
     if (marker.current) {
       const m = track(p, t.marker) * opacity
@@ -74,6 +103,11 @@ export function Mountain({ id, url, aspect, height, peak, name, altitude, range 
 
   return (
     <group ref={group}>
+      {/* Draw the translucent word before the cutout mountain, so the ridge actually occludes it. */}
+      <mesh position={[(peak.u - 0.5) * width, (0.5 - peak.v) * height + height * 0.025, -0.08]} scale={[width * 0.90, width * 0.90 / 4, 1]} renderOrder={1}>
+        <planeGeometry args={[1, 1]} />
+        <meshBasicMaterial ref={titleMaterial} map={titleTexture} transparent opacity={0} depthWrite={false} depthTest={false} toneMapped={false} />
+      </mesh>
       <mesh scale={[width, height, 1]} material={material} renderOrder={2}>
         <planeGeometry args={[1, 1]} />
       </mesh>

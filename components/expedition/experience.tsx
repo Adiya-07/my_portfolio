@@ -5,7 +5,6 @@ import dynamic from 'next/dynamic'
 import Lenis from 'lenis'
 import { clamp, journey } from '@/lib/journey'
 import { Altimeter, Loader, MistLayer, SkyLayer } from './hud'
-import { DepthTitleLayer } from './depth-title'
 import { HeroStage } from './stages/hero-stage'
 import { AstroGuyStage } from './stages/astroguy-stage'
 import { NexusStage } from './stages/nexus-stage'
@@ -79,7 +78,6 @@ export function Experience() {
   return (
     <main className="relative">
       <SkyLayer />
-      <DepthTitleLayer />
       <Scene />
       <MistLayer />
 
